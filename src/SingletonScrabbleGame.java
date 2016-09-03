@@ -13,12 +13,16 @@ class SingletonScrabbleGame {
     private static SingletonScrabbleGame instance = null;
     private static List<Character> list;
 
+    /**
+     * Singleton constructor
+     */
     private SingletonScrabbleGame() {
         list = new LinkedList();
         instance.populateList();
     }
 
     /**
+     * Creates singleton instance
      * @return Singleton instance
      */
     public static synchronized SingletonScrabbleGame getInstance() {
@@ -35,6 +39,7 @@ class SingletonScrabbleGame {
 
     /**
      *  Populates List with characters initially
+     *  @return void
      */
     private static void populateList() {
         for (char c = 'A'; c <= 'Z'; c++) {
@@ -49,7 +54,7 @@ class SingletonScrabbleGame {
     /**
      *
      * @param noOfItems number of letters user wants
-     * @return
+     * @return list of scrabble letters
      */
     private List getLettersFromOriginalList(int noOfItems) {
         List myScrabbleList = new ArrayList();
@@ -65,7 +70,11 @@ class SingletonScrabbleGame {
         return myScrabbleList;
     }
 
-
+    /**
+     *
+     * @param noOfItems number of letters user wants
+     * @return list of scrabble letters for the user
+     */
     public List getScrabbleLetters(int noOfItems) {
         List myScrabbleList = new ArrayList();
         try {
@@ -88,6 +97,10 @@ class SingletonScrabbleGame {
         return myScrabbleList;
     }
 
+    /**
+     * displays the current scrabble list instance
+     * @return void
+     */
     public void displayCurrentListInstance() {
         System.out.println();
         System.out.println("The Srabble instance list size is : " + list.size() + " with these letters: "+list);
