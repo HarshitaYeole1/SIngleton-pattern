@@ -22,10 +22,10 @@ public class SingletonScrabbleGameTest {
     public void setUp() throws Exception {
 
 
-        s3=SingletonScrabbleGame.getInstance(26);        //number of items directly from the instnce
+        //s3=SingletonScrabbleGame.getInstance(26);        //number of items directly from the instnce
 
-        //s1=SingletonScrabbleGame.getInstance();
-        //s2=SingletonScrabbleGame.getInstance();
+        s1=SingletonScrabbleGame.getInstance(3);
+        s2=SingletonScrabbleGame.getInstance(4);
         //s3=SingletonScrabbleGame.getInstance();
         //s1.getScrabbleLetters(6);
         //s1.getScrabbleLetters(16);          // to check empty list exception
@@ -38,8 +38,7 @@ public class SingletonScrabbleGameTest {
 
         System.out.println(s1);
         System.out.println(s2);
-        System.out.println(s3);
-        assertEquals(s2, s3);
+        assertEquals(System.identityHashCode(s2), System.identityHashCode(s1));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -69,7 +68,7 @@ public class SingletonScrabbleGameTest {
         System.out.println(s1);
         StaticInnerSingleton s2=StaticInnerSingleton.getInstance(5);
         System.out.println(s2);
-        myScrabbleList=StaticInnerSingleton.getMyScrabbleList();
+        myScrabbleList=s2.getMyScrabbleList();
         System.out.println(myScrabbleList);
     }
 

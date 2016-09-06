@@ -8,27 +8,27 @@ import java.util.*;
 class StaticInnerSingleton {
     private static SingletonScrabbleGame instance = null;
     private static List<Character> list;
-    private static List<Character>  myScrabbleList = null;
+    private  List<Character> myScrabbleList = null;
 
-        private StaticInnerSingleton(){
-            list = new LinkedList();
-            populateList();
-        }
+    private StaticInnerSingleton() {
+        list = new LinkedList();
+        populateList();
+    }
 
-        public static List<Character> getMyScrabbleList() {
-            return myScrabbleList;
-        }
+    public List<Character> getMyScrabbleList() {
+        return myScrabbleList;
+    }
 
-        private static class SingletonHelper{
-            private static final StaticInnerSingleton INSTANCE = new StaticInnerSingleton();
+    private static class SingletonHelper {
+        private static final StaticInnerSingleton INSTANCE = new StaticInnerSingleton();
 
-        }
+    }
 
-        public static StaticInnerSingleton getInstance(int noOfItems){
-            myScrabbleList=new ArrayList<>();
-            myScrabbleList= SingletonHelper.INSTANCE.getScrabbleLetters(noOfItems);
-            return SingletonHelper.INSTANCE;
-        }
+    public static StaticInnerSingleton getInstance(int noOfItems) {
+        SingletonHelper.INSTANCE.myScrabbleList = new ArrayList<>();
+        SingletonHelper.INSTANCE.myScrabbleList = SingletonHelper.INSTANCE.getScrabbleLetters(noOfItems);
+        return SingletonHelper.INSTANCE;
+    }
 
 
     /**
@@ -37,7 +37,7 @@ class StaticInnerSingleton {
      * @return void
      */
     private static void populateList() {
-        Character[] letters={'A','B','C','D','E','F','G','H','I','K','J','L','A','B','C','D','E','F','E','F','G','H','I','K','J','L','A'};
+        Character[] letters = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'J', 'L', 'A', 'B', 'C', 'D', 'E', 'F', 'E', 'F', 'G', 'H', 'I', 'K', 'J', 'L', 'A'};
         list.addAll(Arrays.asList(letters));
 
     }
@@ -47,7 +47,6 @@ class StaticInnerSingleton {
      * @return list of scrabble letters
      */
     private List<Character> getLettersFromOriginalList(int noOfItems) {
-        // List<Character> myScrabbleList = new ArrayList<>();
 
         for (int index = 0; index < noOfItems; index++) {
             int itemIndex = new Random().nextInt(list.size());
@@ -60,6 +59,7 @@ class StaticInnerSingleton {
 
     /**
      * public method to get letters
+     *
      * @param noOfItems number of letters user wants
      * @return list of scrabble letters for the user
      */
@@ -75,15 +75,5 @@ class StaticInnerSingleton {
         return getLettersFromOriginalList(noOfItems);
     }
 
-    /**
-     * displays the current scrabble list instance
-     *
-     * @return void
-     */
-
-    public void displayCurrentListInstance() {
-        System.out.println();
-        System.out.println("The Srabble instance list size is : " + list.size() + " with these letters: " + list);
-    }
-    }
+}
 
