@@ -22,7 +22,7 @@ public class SingletonScrabbleGameTest {
     public void setUp() throws Exception {
 
 
-        s3=SingletonScrabbleGame.getInstance(10);        //number of items directly from the instnce
+        s3=SingletonScrabbleGame.getInstance(26);        //number of items directly from the instnce
 
         //s1=SingletonScrabbleGame.getInstance();
         //s2=SingletonScrabbleGame.getInstance();
@@ -44,21 +44,33 @@ public class SingletonScrabbleGameTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void itShould_ThrowIllegalArgumentException_Because_ListIsEmpty() throws Exception {
-        //s2.getScrabbleLetters(2);
+        //s2.getScrabbleLetters(3);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void itShould_ThrowIllegalArgumentException_Because_NumberOfItemsAsked_IsGreaterThanListSize() throws Exception {
         //s2.getScrabbleLetters(4);
+        s2 = SingletonScrabbleGame.getInstance(10);
     }
 
     @Test
     public void itShould_SuccessfullyReturnLetters() throws Exception {
 
-        s2 = SingletonScrabbleGame.getInstance(10);
-        myScrabbleList = SingletonScrabbleGame.getMyScrabbleList();
+        s2 = SingletonScrabbleGame.getInstance(1);
+        myScrabbleList=s2.getMyScrabbleList();
         System.out.println(myScrabbleList);
 
+    }
+
+    @Test
+    public void itShouldCheckStaticInnerSingletonClass() throws Exception
+    {
+        StaticInnerSingleton s1=StaticInnerSingleton.getInstance(5);
+        System.out.println(s1);
+        StaticInnerSingleton s2=StaticInnerSingleton.getInstance(5);
+        System.out.println(s2);
+        myScrabbleList=StaticInnerSingleton.getMyScrabbleList();
+        System.out.println(myScrabbleList);
     }
 
 }

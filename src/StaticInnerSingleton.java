@@ -1,51 +1,35 @@
+import sun.security.jca.GetInstance;
 
 import java.util.*;
 
 /**
- * Created by harshita on 3/9/16.
+ * Created by harshita on 6/9/16.
  */
-class SingletonScrabbleGame {
-
+class StaticInnerSingleton {
     private static SingletonScrabbleGame instance = null;
     private static List<Character> list;
-    private List<Character>  myScrabbleList = null;
+    private static List<Character>  myScrabbleList = null;
 
-    /**
-     * Singleton constructor
-     * Creates a new linkedlist
-     * calls populatelist() to fiul the list with characters
-     */
-    private SingletonScrabbleGame() {
-        list = new LinkedList();
-        instance.populateList();
-
-    }
-
-    /**
-     *  getter method for myScrabbleList
-     * @return myScrabbleList
-     */
-    public List<Character> getMyScrabbleList() {
-        return myScrabbleList;
-    }
-
-    /**
-     * Creates singleton instance
-     *
-     * @return Singleton instance
-     */
-    public static synchronized SingletonScrabbleGame getInstance(int noOfItems) {
-        if (instance == null) {
-            synchronized (SingletonScrabbleGame.class) {
-                if (instance == null) {
-                    instance = new SingletonScrabbleGame();
-                }
-            }
+        private StaticInnerSingleton(){
+            list = new LinkedList();
+            populateList();
         }
-        instance.myScrabbleList=new ArrayList<>();
-        instance.myScrabbleList=instance.getScrabbleLetters(noOfItems);
-        return instance;
-    }
+
+        public static List<Character> getMyScrabbleList() {
+            return myScrabbleList;
+        }
+
+        private static class SingletonHelper{
+            private static final StaticInnerSingleton INSTANCE = new StaticInnerSingleton();
+
+        }
+
+        public static StaticInnerSingleton getInstance(int noOfItems){
+            myScrabbleList=new ArrayList<>();
+            myScrabbleList= SingletonHelper.INSTANCE.getScrabbleLetters(noOfItems);
+            return SingletonHelper.INSTANCE;
+        }
+
 
     /**
      * Populates List with characters initially
@@ -53,8 +37,8 @@ class SingletonScrabbleGame {
      * @return void
      */
     private static void populateList() {
-         Character[] letters={'A','B','C','D','E','F','G','H','I','K','J','L','A','B','C','D','E','F','E','F','G','H','I','K','J','L','A'};
-         list.addAll(Arrays.asList(letters));
+        Character[] letters={'A','B','C','D','E','F','G','H','I','K','J','L','A','B','C','D','E','F','E','F','G','H','I','K','J','L','A'};
+        list.addAll(Arrays.asList(letters));
 
     }
 
@@ -62,8 +46,8 @@ class SingletonScrabbleGame {
      * @param noOfItems number of letters user wants
      * @return list of scrabble letters
      */
-    private List getLettersFromOriginalList(int noOfItems) {
-       // List<Character> myScrabbleList = new ArrayList<>();
+    private List<Character> getLettersFromOriginalList(int noOfItems) {
+        // List<Character> myScrabbleList = new ArrayList<>();
 
         for (int index = 0; index < noOfItems; index++) {
             int itemIndex = new Random().nextInt(list.size());
@@ -79,7 +63,7 @@ class SingletonScrabbleGame {
      * @param noOfItems number of letters user wants
      * @return list of scrabble letters for the user
      */
-    private List getScrabbleLetters(int noOfItems) {
+    private List<Character> getScrabbleLetters(int noOfItems) {
 
         if (list == null || list.isEmpty()) {
             throw new IllegalArgumentException("Sorry there are no letters available!!!");
@@ -101,5 +85,5 @@ class SingletonScrabbleGame {
         System.out.println();
         System.out.println("The Srabble instance list size is : " + list.size() + " with these letters: " + list);
     }
+    }
 
-}
