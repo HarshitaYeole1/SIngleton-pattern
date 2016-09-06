@@ -21,8 +21,8 @@ public class SingletonScrabbleGameTest {
         s2=SingletonScrabbleGame.getInstance();
         s3=SingletonScrabbleGame.getInstance();
         //s1.getScrabbleLetters(6);
-        //s1.getScrabbleLetters(26);          // to check empty list exception
-        s1.getScrabbleLetters(20);         //to check asked items greater than list size
+        s1.getScrabbleLetters(16);          // to check empty list exception
+       // s1.getScrabbleLetters(20);         //to check asked items greater than list size
         System.out.println();
     }
 
@@ -40,14 +40,14 @@ public class SingletonScrabbleGameTest {
         s2.getScrabbleLetters(2);
     }
 
-    @Test
-    public void itShould_Reduce_GiveCorrectNumberOfItems_IfNumberOfItemsAsked_IsGreaterThanListSize() throws Exception{
-        s3.getScrabbleLetters(8);
+    @Test(expected = IllegalArgumentException.class)
+    public void itShould_ThrowIllegalArgumentException_Because_NumberOfItemsAsked_IsGreaterThanListSize()  throws Exception {
+        s2.getScrabbleLetters(4);
     }
 
     @Test
     public void itShould_SuccessfullyReturnLetters() throws Exception{
-        s3.getScrabbleLetters(8);
+        System.out.println(s3.getScrabbleLetters(8));
     }
 
 }
