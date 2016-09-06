@@ -8,6 +8,7 @@ class SingletonScrabbleGame {
 
     private static SingletonScrabbleGame instance = null;
     private static List<Character> list;
+    private static List<Character>  myScrabbleList = null;
 
     /**
      * Singleton constructor
@@ -17,6 +18,12 @@ class SingletonScrabbleGame {
     private SingletonScrabbleGame() {
         list = new LinkedList();
         instance.populateList();
+
+    }
+
+
+    public static List<Character> getMyScrabbleList() {
+        return myScrabbleList;
     }
 
     /**
@@ -24,7 +31,7 @@ class SingletonScrabbleGame {
      *
      * @return Singleton instance
      */
-    public static synchronized SingletonScrabbleGame getInstance() {
+    public static synchronized SingletonScrabbleGame getInstance(int noOfItems) {
         if (instance == null) {
             synchronized (SingletonScrabbleGame.class) {
                 if (instance == null) {
@@ -32,6 +39,8 @@ class SingletonScrabbleGame {
                 }
             }
         }
+        myScrabbleList=new ArrayList<>();
+        myScrabbleList=instance.getScrabbleLetters(noOfItems);
         return instance;
     }
 
@@ -51,7 +60,8 @@ class SingletonScrabbleGame {
      * @return list of scrabble letters
      */
     private List getLettersFromOriginalList(int noOfItems) {
-        List<Character> myScrabbleList = new ArrayList<>();
+       // List<Character> myScrabbleList = new ArrayList<>();
+
         for (int index = 0; index < noOfItems; index++) {
             int itemIndex = new Random().nextInt(list.size());
             char item = (char) list.get(itemIndex);
@@ -66,7 +76,7 @@ class SingletonScrabbleGame {
      * @param noOfItems number of letters user wants
      * @return list of scrabble letters for the user
      */
-    public List getScrabbleLetters(int noOfItems) {
+    private List getScrabbleLetters(int noOfItems) {
 
         if (list == null || list.isEmpty()) {
             throw new IllegalArgumentException("Sorry there are no letters available!!!");
